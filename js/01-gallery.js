@@ -34,7 +34,16 @@ function onImageClick (event){
     const src = event.target.dataset.source;
     const instance = basicLightbox.create(`
     <div class="modal">
-        <img src="${src}" width="1040">
+        <img src="${src}" width="1040" height="600">
     </div>
     `);
+    instance.show();
+
+    galleryEl.addEventListener("keydown", (e) => {
+    if (e.code === "Escape") {
+      instance.close();
+    }
+  });
 }
+
+console.log(galleryItems);
