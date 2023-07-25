@@ -21,29 +21,32 @@ const galleryMarkup = galleryItems
 
 galleryEl.innerHTML = galleryMarkup;
 
+const instance = basicLightbox.create(`<div class="modal"><img src="" width="1040" height="600"></div>`, {
+  onShow: () => {
+    document.addEventListener("keydown", onEscDown);
+  },
+  onClose: () => {
+    document.removeEventListener("keydown", onEscDown);
+  },
+});
+
+function onImageClick(event) {
+  event.preventDefault();
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
+
+  instance.element().querySelector("img").src = event.target.dataset.source;
+
+  instance.show();
+}
+
 galleryEl.addEventListener("click", onImageClick);
 
-
-function onImageClick (event){
-    event.preventDefault();
-
-    if(event.target.nodeName !== "IMG"){
-        return;
-    }
-
-    const src = event.target.dataset.source;
-    const instance = basicLightbox.create(`
-    <div class="modal">
-        <img src="${src}" width="1040" height="600">
-    </div>
-    `);
-    instance.show();
-
-    galleryEl.addEventListener("keydown", (e) => {
-    if (e.code === "Escape") {
-      instance.close();
-    }
-  });
+function onEscDown(event) {
+  if (event.code === "Escape") {
+    instance.close();
+  }
 }
 
 console.log(galleryItems);

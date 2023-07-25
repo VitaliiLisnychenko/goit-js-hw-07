@@ -21,7 +21,7 @@ const galleryMarkup = galleryItems
 
 galleryEl.innerHTML = galleryMarkup;
 
-var lightbox = new SimpleLightbox(".gallery a", {
+const lightbox = new SimpleLightbox(".gallery a", {
   captions: true,
   captionsData: "alt",
   captionSelector: "img",
